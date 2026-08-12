@@ -4,6 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { PageHero } from "@/components/PageHero";
 import { SectionHeading } from "@/components/SectionHeading";
 import { AppointmentForm } from "@/components/AppointmentForm";
+import { FeedbackForm } from "@/components/FeedbackForm";
 import { EmergencyCta } from "@/components/EmergencyCta";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { site } from "@/data/site";
@@ -102,6 +103,13 @@ function Contact() {
             <SectionHeading align="left" eyebrow="Appointment" title="Request an appointment" />
             <div className="mt-6">
               <AppointmentForm />
+            </div>
+
+            <div className="mt-12">
+              <SectionHeading align="left" eyebrow="Feedback" title="Share your experience" />
+              <div className="mt-6">
+                <FeedbackForm />
+              </div>
             </div>
           </div>
         </div>
