@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { departments, site } from "@/data/site";
-import { submitAppointment } from "@/lib/admin-api";
+import { api } from "@/lib/api";
 
 type FormValues = {
   name: string;
