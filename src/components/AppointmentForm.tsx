@@ -114,8 +114,15 @@ export function AppointmentForm() {
           </select>
         </div>
         <div className="sm:col-span-2">
-          <Label htmlFor="date">Preferred date</Label>
-          <Input id="date" type="date" className={fieldClass} {...register("date")} />
+          <Label htmlFor="date">Preferred date *</Label>
+          <Input
+            id="date"
+            type="date"
+            className={fieldClass}
+            aria-invalid={!!errors.date}
+            {...register("date", { required: "Please choose a preferred date" })}
+          />
+          {errors.date && <p className="mt-1.5 text-xs text-destructive">{errors.date.message}</p>}
         </div>
       </div>
       <div>
