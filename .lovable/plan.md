@@ -1,42 +1,71 @@
-# Bring in kshirsagarorthopaedic + Hostinger MySQL direction
+# Architecture analysis: Hostinger + Express + MariaDB
 
-## Database answers (current project)
+## What exists today (verified)
 
-1. **No** — not compatible with Hostinger MariaDB/MySQL as-is.
-2. Current database: **None**. This project is a fresh TanStack Start template with no backend wired up. If a database were added through Lovable Cloud it would be **PostgreSQL**, not MySQL/MariaDB.
+This project is still the untouched starter template. There is no hospital website in it yet:
 
-## Getting the repo in
+- `src/routes/` contains only `__root.tsx` and `index.tsx`, and `index.tsx` is the blank placeholder graphic.
+- `src/components/` contains only the shadcn `ui/` primitives — no hospital components.
+- No database, no Supabase/Cloud, no API layer, no server functions. `package.json` has React 19, TanStack Start v1, Vite, Tailwind v4, shadcn, react-hook-form, zod, sonner.
 
-`github.com/Jaydev05/kshirsagarorthopaedic` returns 404 to anonymous access, so it is private or renamed. Lovable also cannot import an existing GitHub repository into a project — the GitHub integration creates a repo *from* this project and then syncs two-way.
+So "prepare the existing hospital website" cannot mean modifying pages here — those pages do not exist in this project. The kshirsagarorthopaedic code has not been brought in (the repo 404s to anonymous access, and GitHub is not to be connected yet).
 
-Practical path:
+## Answer to the earlier database question
 
-1. You connect GitHub from the chat Plus (+) menu → GitHub → Connect project, and create the repo link for this project.
-2. Because direct import is unsupported, the existing site's code is brought over one of two ways:
-   - You push the existing code into the newly connected Lovable repo (same default branch); it then syncs down into this project, or
-   - You share the source (public repo, ZIP upload, or key files pasted) and the pages are rebuilt here.
-3. Once the code lands, the site structure is reviewed and the existing routes/pages are mapped onto TanStack Start routes under `src/routes`.
+1. **No** — the project as it stands is not compatible with Hostinger MariaDB/MySQL, because it has no data layer at all.
+2. Current database: **none**.
 
-Nothing can be pulled until one of those happens — this is the blocking step.
+## Changes required for the target architecture
 
-## Hostinger (MySQL/PHP) implications
+### 1. Rendering mode: SSR must go
+TanStack Start's default output is a server bundle for an edge/Node runtime. Hostinger shared hosting serves static files (plus your own Node process if it is a VPS). Required change: build the frontend as a static SPA (`prerender`/SPA mode, no server functions, no SSR-only logic) so `dist/` can be uploaded to `public_html`. Consequence: **no `createServerFn` anywhere** — every dynamic read/write goes over `fetch` to the Express API.
 
-Since hosting is Hostinger with MySQL:
+### 2. A separate Express backend repo/folder
+A `server/` Node + Express app, deployed separately on Hostinger (VPS or Node hosting), with:
+- `mysql2/promise` connection pool to Hostinger MariaDB
+- `zod` validation on every request body
+- CORS restricted to the site domain
+- `helmet`, request rate limiting on the public POST endpoints
+- `bcrypt` password hashing + JWT (httpOnly cookie) for admin auth
+- `.env` for DB host/user/password/JWT secret (never in the frontend bundle)
 
-- Lovable Cloud (Postgres) is not used. No Supabase client, no `createServerFn` DB access against Postgres.
-- Any data layer talks to your MySQL/MariaDB through a small PHP or Node API you host on Hostinger; the frontend calls it over HTTPS with `fetch`.
-- The Lovable app is built as a static/SPA-friendly frontend so it can be uploaded to Hostinger; server-only features (server functions, SSR-dependent logic) are avoided.
-- Contact/appointment forms, if any, post to your PHP endpoint rather than a Lovable backend.
+This backend cannot live inside the Lovable project's runtime; it is a sibling deliverable that we author here and you deploy on Hostinger.
 
-If the existing repo is already a PHP/MySQL site, we decide whether to keep that backend and only rebuild the frontend here, or rebuild both — that decision needs a look at the code.
+### 3. API surface
+Public:
+- `POST /api/appointments` — create appointment request
+- `POST /api/feedback` — create patient feedback
 
-## Technical notes
+Admin (JWT-protected):
+- `POST /api/admin/login`, `POST /api/admin/logout`, `GET /api/admin/me`
+- `GET /api/appointments`, `PATCH /api/appointments/:id` (status)
+- `GET /api/feedback`, `PATCH /api/feedback/:id` (approve/hide), `DELETE /api/feedback/:id`
 
-- Stack here is fixed: React 19 + TanStack Start v1 + Vite 7 + Tailwind v4. PHP files can live in the repo but do not run in the Lovable preview.
-- Routes are file-based in `src/routes`; `src/routes/index.tsx` currently holds the placeholder home page and is replaced first.
-- Design tokens go in `src/styles.css`; no hardcoded colors in components.
-- Each page route gets its own `head()` with unique title/description/OG tags for SEO (important for a clinic site).
+### 4. MySQL/MariaDB schema (3 tables only)
+- `appointments` — id, name, phone, email, preferred_date, preferred_time, doctor_key, service_key, message, status enum, created_at
+- `feedback` — id, name, rating tinyint, message, is_approved tinyint, created_at
+- `admin_users` — id, username unique, password_hash, role, created_at
 
-## Next step
+Delivered as a plain `.sql` file you import via Hostinger phpMyAdmin. No ORM migrations, no Postgres syntax.
 
-Connect GitHub, then tell me which transfer route you want for the existing code.
+### 5. Static content stays in the repo
+Doctors, hospital info, services, gallery, timings, contact details live as typed TS data modules under `src/content/` (e.g. `doctors.ts`, `services.ts`, `gallery.ts`) with images imported from `src/assets/`. No DB tables, no CMS. Editing content = editing those files and redeploying — that is the intended tradeoff.
+
+### 6. Frontend data layer
+- One `src/lib/api.ts` wrapper around `fetch` using `import.meta.env.VITE_API_BASE_URL` (safe to expose; it is just the API origin).
+- TanStack Query `useMutation` for appointment/feedback forms, `useQuery` for admin lists.
+- Admin routes guarded client-side by an auth check against `/api/admin/me`; real enforcement is server-side in Express.
+
+### 7. Routing/deploy details
+- Hostinger needs an `.htaccess` rewrite so SPA deep links (`/doctors`, `/admin`) fall back to `index.html`.
+- Vite `base` stays `/` assuming the site sits at the domain root.
+- Site pages needed: home, about, doctors, services, gallery, appointment, feedback, contact, plus `/admin` (login + dashboard).
+
+### 8. Things that must be avoided
+- Lovable Cloud / Supabase / Postgres / Mongo — none used.
+- `createServerFn`, `src/routes/api/*` server routes, SSR loaders touching secrets — all incompatible with a static Hostinger frontend.
+- DB credentials anywhere in `src/` or any `VITE_` variable.
+
+## Open question before implementation
+
+The hospital site's actual pages and design still need to get into this project. Options: make the repo public, upload a ZIP, or rebuild the pages here from your content. Nothing is implemented until you pick one and approve this architecture.
