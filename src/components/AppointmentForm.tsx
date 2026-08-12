@@ -33,10 +33,10 @@ export function AppointmentForm() {
       await api.createAppointment({
         name: values.name,
         phone: values.mobile,
-        email: values.email || undefined,
         preferredDate: values.date,
-        serviceKey: values.department || undefined,
-        message: values.message || undefined,
+        ...(values.email ? { email: values.email } : {}),
+        ...(values.department ? { serviceKey: values.department } : {}),
+        ...(values.message ? { message: values.message } : {}),
       });
     } catch {
       toast.error("We could not send your request", {
