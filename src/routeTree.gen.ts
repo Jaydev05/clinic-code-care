@@ -10,33 +10,194 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ArthroscopyRouteImport } from './routes/arthroscopy'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DoctorsRouteImport } from './routes/doctors'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as GeneralMedicineCriticalCareRouteImport } from './routes/general-medicine-critical-care'
+import { Route as OrthopaedicServicesRouteImport } from './routes/orthopaedic-services'
+import { Route as PainManagementRouteImport } from './routes/pain-management'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as SpineSurgeriesRouteImport } from './routes/spine-surgeries'
+import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArthroscopyRoute = ArthroscopyRouteImport.update({
+  id: '/arthroscopy',
+  path: '/arthroscopy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorsRoute = DoctorsRouteImport.update({
+  id: '/doctors',
+  path: '/doctors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GeneralMedicineCriticalCareRoute =
+  GeneralMedicineCriticalCareRouteImport.update({
+    id: '/general-medicine-critical-care',
+    path: '/general-medicine-critical-care',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OrthopaedicServicesRoute = OrthopaedicServicesRouteImport.update({
+  id: '/orthopaedic-services',
+  path: '/orthopaedic-services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PainManagementRoute = PainManagementRouteImport.update({
+  id: '/pain-management',
+  path: '/pain-management',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpineSurgeriesRoute = SpineSurgeriesRouteImport.update({
+  id: '/spine-surgeries',
+  path: '/spine-surgeries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
+  id: '/terms-and-conditions',
+  path: '/terms-and-conditions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/arthroscopy': typeof ArthroscopyRoute
+  '/contact': typeof ContactRoute
+  '/doctors': typeof DoctorsRoute
+  '/gallery': typeof GalleryRoute
+  '/general-medicine-critical-care': typeof GeneralMedicineCriticalCareRoute
+  '/orthopaedic-services': typeof OrthopaedicServicesRoute
+  '/pain-management': typeof PainManagementRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/services': typeof ServicesRoute
+  '/spine-surgeries': typeof SpineSurgeriesRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/arthroscopy': typeof ArthroscopyRoute
+  '/contact': typeof ContactRoute
+  '/doctors': typeof DoctorsRoute
+  '/gallery': typeof GalleryRoute
+  '/general-medicine-critical-care': typeof GeneralMedicineCriticalCareRoute
+  '/orthopaedic-services': typeof OrthopaedicServicesRoute
+  '/pain-management': typeof PainManagementRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/services': typeof ServicesRoute
+  '/spine-surgeries': typeof SpineSurgeriesRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/arthroscopy': typeof ArthroscopyRoute
+  '/contact': typeof ContactRoute
+  '/doctors': typeof DoctorsRoute
+  '/gallery': typeof GalleryRoute
+  '/general-medicine-critical-care': typeof GeneralMedicineCriticalCareRoute
+  '/orthopaedic-services': typeof OrthopaedicServicesRoute
+  '/pain-management': typeof PainManagementRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/services': typeof ServicesRoute
+  '/spine-surgeries': typeof SpineSurgeriesRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/arthroscopy'
+    | '/contact'
+    | '/doctors'
+    | '/gallery'
+    | '/general-medicine-critical-care'
+    | '/orthopaedic-services'
+    | '/pain-management'
+    | '/privacy-policy'
+    | '/services'
+    | '/spine-surgeries'
+    | '/terms-and-conditions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/arthroscopy'
+    | '/contact'
+    | '/doctors'
+    | '/gallery'
+    | '/general-medicine-critical-care'
+    | '/orthopaedic-services'
+    | '/pain-management'
+    | '/privacy-policy'
+    | '/services'
+    | '/spine-surgeries'
+    | '/terms-and-conditions'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/arthroscopy'
+    | '/contact'
+    | '/doctors'
+    | '/gallery'
+    | '/general-medicine-critical-care'
+    | '/orthopaedic-services'
+    | '/pain-management'
+    | '/privacy-policy'
+    | '/services'
+    | '/spine-surgeries'
+    | '/terms-and-conditions'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ArthroscopyRoute: typeof ArthroscopyRoute
+  ContactRoute: typeof ContactRoute
+  DoctorsRoute: typeof DoctorsRoute
+  GalleryRoute: typeof GalleryRoute
+  GeneralMedicineCriticalCareRoute: typeof GeneralMedicineCriticalCareRoute
+  OrthopaedicServicesRoute: typeof OrthopaedicServicesRoute
+  PainManagementRoute: typeof PainManagementRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  ServicesRoute: typeof ServicesRoute
+  SpineSurgeriesRoute: typeof SpineSurgeriesRoute
+  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +209,107 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/arthroscopy': {
+      id: '/arthroscopy'
+      path: '/arthroscopy'
+      fullPath: '/arthroscopy'
+      preLoaderRoute: typeof ArthroscopyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctors': {
+      id: '/doctors'
+      path: '/doctors'
+      fullPath: '/doctors'
+      preLoaderRoute: typeof DoctorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/general-medicine-critical-care': {
+      id: '/general-medicine-critical-care'
+      path: '/general-medicine-critical-care'
+      fullPath: '/general-medicine-critical-care'
+      preLoaderRoute: typeof GeneralMedicineCriticalCareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orthopaedic-services': {
+      id: '/orthopaedic-services'
+      path: '/orthopaedic-services'
+      fullPath: '/orthopaedic-services'
+      preLoaderRoute: typeof OrthopaedicServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pain-management': {
+      id: '/pain-management'
+      path: '/pain-management'
+      fullPath: '/pain-management'
+      preLoaderRoute: typeof PainManagementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/spine-surgeries': {
+      id: '/spine-surgeries'
+      path: '/spine-surgeries'
+      fullPath: '/spine-surgeries'
+      preLoaderRoute: typeof SpineSurgeriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-and-conditions': {
+      id: '/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof TermsAndConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ArthroscopyRoute: ArthroscopyRoute,
+  ContactRoute: ContactRoute,
+  DoctorsRoute: DoctorsRoute,
+  GalleryRoute: GalleryRoute,
+  GeneralMedicineCriticalCareRoute: GeneralMedicineCriticalCareRoute,
+  OrthopaedicServicesRoute: OrthopaedicServicesRoute,
+  PainManagementRoute: PainManagementRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  ServicesRoute: ServicesRoute,
+  SpineSurgeriesRoute: SpineSurgeriesRoute,
+  TermsAndConditionsRoute: TermsAndConditionsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
