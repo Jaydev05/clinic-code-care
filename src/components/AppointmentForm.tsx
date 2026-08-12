@@ -30,13 +30,13 @@ export function AppointmentForm() {
 
   const onSubmit = async (values: FormValues) => {
     try {
-      await submitAppointment({
+      await api.createAppointment({
         name: values.name,
-        mobile: values.mobile,
-        email: values.email,
-        department: values.department,
-        preferred_date: values.date || null,
-        message: values.message,
+        phone: values.mobile,
+        email: values.email || undefined,
+        preferredDate: values.date,
+        serviceKey: values.department || undefined,
+        message: values.message || undefined,
       });
     } catch {
       toast.error("We could not send your request", {
