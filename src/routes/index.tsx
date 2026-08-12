@@ -12,7 +12,6 @@ import { usePublicDoctors } from "@/hooks/usePublicDoctors";
 import { keyServices } from "@/data/services";
 import { facilities } from "@/data/content";
 import { site } from "@/data/site";
-import logo from "@/assets/logo.png.asset.json";
 import hero from "@/assets/hero-hospital.jpg";
 
 export const Route = createFileRoute("/")({
@@ -113,7 +112,7 @@ function Home() {
           >
             <div className="rounded-4xl border border-primary-foreground/20 bg-primary-foreground/95 p-10 shadow-lift backdrop-blur">
               <img
-                src={logo.url}
+                src="/favicon.png"
                 alt="Kshirsagar Orthopaedic Care & ICU logo"
                 width={320}
                 height={320}

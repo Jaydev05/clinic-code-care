@@ -1,12 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/logo.png.asset.json";
 import { site } from "@/data/site";
 
 export function Logo({ className = "", compact = false }: { className?: string; compact?: boolean }) {
   return (
     <Link to="/" className={`flex items-center gap-3 ${className}`} aria-label={`${site.name} — home`}>
       <img
-        src={logo.url}
+        src="/favicon.png"
         alt={`${site.name} logo`}
         width={64}
         height={64}
