@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { departments, site } from "@/data/site";
+import { departments, site, timeSlots } from "@/data/site";
 import { api } from "@/lib/api";
 
 type FormValues = {
@@ -13,19 +13,23 @@ type FormValues = {
   email: string;
   department: string;
   date: string;
+  time: string;
   message: string;
 };
 
 const fieldClass = "mt-1.5";
+const selectClass =
+  "mt-1.5 h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
 
-export function AppointmentForm() {
+/** `doctorSlug` is stored on the appointment row so the desk knows who the request is for. */
+export function AppointmentForm({ doctorSlug }: { doctorSlug?: string }) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
-    defaultValues: { name: "", mobile: "", email: "", department: "", date: "", message: "" },
+    defaultValues: { name: "", mobile: "", email: "", department: "", date: "", time: "", message: "" },
   });
 
   const onSubmit = async (values: FormValues) => {
@@ -36,6 +40,8 @@ export function AppointmentForm() {
         preferredDate: values.date,
         ...(values.email ? { email: values.email } : {}),
         ...(values.department ? { serviceKey: values.department } : {}),
+        ...(values.time ? { preferredTime: values.time } : {}),
+        ...(doctorSlug ? { doctorKey: doctorSlug } : {}),
         ...(values.message ? { message: values.message } : {}),
       });
     } catch {

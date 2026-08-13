@@ -86,8 +86,8 @@ function About() {
             <h3 className="font-display text-lg font-semibold text-primary">Our Specialities</h3>
             <ul className="mt-5 grid gap-3 sm:grid-cols-2">
               {departments.map((d) => (
-                <li key={d} className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <FiCheck className="size-4 shrink-0 text-teal" /> {d}
+                <li key={d.label} className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <FiCheck className="size-4 shrink-0 text-teal" /> {d.label}
                 </li>
               ))}
             </ul>
