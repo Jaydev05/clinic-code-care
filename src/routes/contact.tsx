@@ -40,10 +40,9 @@ export const Route = createFileRoute("/contact")({
       },
     ],
   }),
-  // /contact?doctor=<slug> pre-selects the doctor for the appointment request.
-  validateSearch: (search: Record<string, unknown>) => ({
-    doctor: typeof search["doctor"] === "string" ? (search["doctor"] as string) : undefined,
-  }),
+  // /contact?doctor=<slug> tags the appointment request with the chosen doctor.
+  validateSearch: (search: Record<string, unknown>): { doctor?: string } =>
+    typeof search["doctor"] === "string" ? { doctor: search["doctor"] } : {},
   component: Contact,
 });
 
