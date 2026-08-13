@@ -106,7 +106,7 @@ function Contact() {
           <div>
             <SectionHeading align="left" eyebrow="Appointment" title="Request an appointment" />
             <div className="mt-6">
-              <AppointmentForm doctorSlug={doctor} />
+              <AppointmentForm {...(doctor ? { doctorSlug: doctor } : {})} />
             </div>
 
             <div className="mt-12">
