@@ -53,7 +53,9 @@ export function DoctorCard({ doctor, detailed = false }: { doctor: Doctor; detai
 
         <div className="mt-6 flex flex-wrap gap-2 pt-1">
           <Button asChild variant="hero" size="sm">
-            <Link to="/contact">Book Appointment</Link>
+            <Link to="/contact" search={{ doctor: doctor.slug }}>
+              Book Appointment
+            </Link>
           </Button>
           {!detailed && (
             <Button asChild variant="outline" size="sm">
