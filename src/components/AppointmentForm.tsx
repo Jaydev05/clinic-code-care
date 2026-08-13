@@ -106,20 +106,16 @@ export function AppointmentForm({ doctorSlug }: { doctorSlug?: string }) {
         </div>
         <div>
           <Label htmlFor="department">Department</Label>
-          <select
-            id="department"
-            className="mt-1.5 h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-            {...register("department")}
-          >
+          <select id="department" className={selectClass} {...register("department")}>
             <option value="">Select department</option>
             {departments.map((d) => (
-              <option key={d} value={d}>
-                {d}
+              <option key={d.label} value={d.value}>
+                {d.label}
               </option>
             ))}
           </select>
         </div>
-        <div className="sm:col-span-2">
+        <div>
           <Label htmlFor="date">Preferred date *</Label>
           <Input
             id="date"
@@ -129,6 +125,17 @@ export function AppointmentForm({ doctorSlug }: { doctorSlug?: string }) {
             {...register("date", { required: "Please choose a preferred date" })}
           />
           {errors.date && <p className="mt-1.5 text-xs text-destructive">{errors.date.message}</p>}
+        </div>
+        <div>
+          <Label htmlFor="time">Preferred time</Label>
+          <select id="time" className={selectClass} {...register("time")}>
+            <option value="">Any time</option>
+            {timeSlots.map((slot) => (
+              <option key={slot} value={slot}>
+                {slot}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
       <div>
