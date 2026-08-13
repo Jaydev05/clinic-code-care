@@ -11,5 +11,21 @@ export default defineConfig({
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    // Hostinger shared hosting serves static files only: prerender every page to
+    // plain HTML and ship an SPA shell fallback for client-side navigation.
+    spa: { enabled: true },
+    prerender: { enabled: true, crawlLinks: true },
+  },
+  vite: {
+    server: {
+      // Dev only: forward /api/* to the local Express API (server/, port 4000)
+      // so the appointment, feedback and admin calls work without CORS setup.
+      proxy: {
+        "/api": {
+          target: process.env["DEV_API_TARGET"] ?? "http://localhost:4000",
+          changeOrigin: true,
+        },
+      },
+    },
   },
 });
