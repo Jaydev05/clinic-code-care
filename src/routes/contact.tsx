@@ -40,10 +40,14 @@ export const Route = createFileRoute("/contact")({
       },
     ],
   }),
+  // /contact?doctor=<slug> tags the appointment request with the chosen doctor.
+  validateSearch: (search: Record<string, unknown>): { doctor?: string } =>
+    typeof search["doctor"] === "string" ? { doctor: search["doctor"] } : {},
   component: Contact,
 });
 
 function Contact() {
+  const { doctor } = Route.useSearch();
   return (
     <>
       <PageHero
@@ -102,7 +106,7 @@ function Contact() {
           <div>
             <SectionHeading align="left" eyebrow="Appointment" title="Request an appointment" />
             <div className="mt-6">
-              <AppointmentForm />
+              <AppointmentForm {...(doctor ? { doctorSlug: doctor } : {})} />
             </div>
 
             <div className="mt-12">
