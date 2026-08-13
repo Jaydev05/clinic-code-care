@@ -48,9 +48,8 @@ export const departments = [
   { value: "general-medicine-critical-care", label: "Critical Care" },
 ] as const;
 
-/** Preferred appointment time slots (stored as-is in appointments.preferred_time). */
-export const timeSlots = [
-  "Morning (9 AM - 12 PM)",
-  "Afternoon (12 PM - 4 PM)",
-  "Evening (4 PM - 8 PM)",
-] as const;
+/**
+ * Preferred appointment time slots. Stored as-is in appointments.preferred_time,
+ * which is VARCHAR(20) — keep every label at 20 characters or fewer.
+ */
+export const timeSlots = ["Morning (9-12)", "Afternoon (12-4)", "Evening (4-8)"] as const;
