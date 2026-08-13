@@ -10,7 +10,6 @@ export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
-    server: { entry: "server" },
     // Hostinger shared hosting serves static files only: emit an SPA shell so
     // every URL can be served from index.html via public/.htaccess.
     spa: { enabled: true },
