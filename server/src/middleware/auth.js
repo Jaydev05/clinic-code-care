@@ -9,10 +9,13 @@ export function signAdminToken(user) {
 }
 
 export function cookieOptions() {
+  // Cross-site cookies require SameSite=None + Secure (production, HTTPS).
+  // Over plain HTTP (local development) browsers reject SameSite=None, so fall back to Lax.
+  const secure = String(process.env.COOKIE_SECURE ?? "true") === "true";
   return {
     httpOnly: true,
-    sameSite: "none",
-    secure: String(process.env.COOKIE_SECURE ?? "true") === "true",
+    sameSite: secure ? "none" : "lax",
+    secure,
     path: "/",
     maxAge: 8 * 60 * 60 * 1000,
   };
