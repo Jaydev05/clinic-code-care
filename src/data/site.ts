@@ -32,13 +32,25 @@ export const site = {
   ],
 } as const;
 
+/**
+ * Appointment departments. `value` is the stable service slug stored in the
+ * database (appointments.service_key) and must match a slug in data/services.ts.
+ * Never change a value once appointments reference it.
+ */
 export const departments = [
-  "Orthopaedics",
-  "Trauma Care",
-  "Joint Replacement",
-  "Spine Surgery",
-  "Arthroscopy",
-  "Pain Management",
-  "General Medicine",
-  "Critical Care",
-];
+  { value: "orthopaedic-services", label: "Orthopaedics" },
+  { value: "orthopaedic-services", label: "Trauma Care" },
+  { value: "orthopaedic-services", label: "Joint Replacement" },
+  { value: "spine-surgeries", label: "Spine Surgery" },
+  { value: "arthroscopy", label: "Arthroscopy" },
+  { value: "pain-management", label: "Pain Management" },
+  { value: "general-medicine-critical-care", label: "General Medicine" },
+  { value: "general-medicine-critical-care", label: "Critical Care" },
+] as const;
+
+/** Preferred appointment time slots (stored as-is in appointments.preferred_time). */
+export const timeSlots = [
+  "Morning (9 AM - 12 PM)",
+  "Afternoon (12 PM - 4 PM)",
+  "Evening (4 PM - 8 PM)",
+] as const;
