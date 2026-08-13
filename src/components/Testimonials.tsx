@@ -16,10 +16,10 @@ export function Testimonials() {
     retry: false,
   });
 
-  const items =
-    data && data.length > 0
-      ? data.map((f) => ({ quote: f.message, name: f.name, detail: `${"\u2605".repeat(f.rating)}` }))
-      : testimonials;
+  const hasRealFeedback = Boolean(data && data.length > 0);
+  const items = hasRealFeedback
+    ? data!.map((f) => ({ quote: f.message, name: f.name, detail: `${"\u2605".repeat(f.rating)}` }))
+    : testimonials;
 
   return (
     <section className="section-y bg-surface">
@@ -27,7 +27,11 @@ export function Testimonials() {
         <SectionHeading
           eyebrow="Patient Voices"
           title="What patients say"
-          description="Placeholder entries only. Genuine, consented patient reviews will replace these before launch."
+          description={
+            hasRealFeedback
+              ? "Feedback shared by patients and families, published after review by the hospital team."
+              : "Placeholder entries only. Genuine, consented patient reviews will replace these before launch."
+          }
         />
         <div className="mt-12">
           <Swiper
