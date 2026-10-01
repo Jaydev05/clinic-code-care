@@ -7,7 +7,7 @@ export function EmergencyCta() {
   return (
     <section className="section-y">
       <div className="container-page">
-        <div className="relative overflow-hidden rounded-4xl bg-brand-gradient px-6 py-14 text-center sm:px-12">
+        <div className="relative overflow-hidden rounded-xl border border-primary-light bg-brand-gradient px-6 py-14 text-center shadow-lift sm:px-12">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/75">
             Emergency &amp; Critical Care · 24 × 7
           </p>

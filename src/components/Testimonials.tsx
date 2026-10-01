@@ -17,8 +17,8 @@ export function Testimonials() {
   });
 
   const hasRealFeedback = Boolean(data && data.length > 0);
-  const items = hasRealFeedback
-    ? data!.map((f) => ({ quote: f.message, name: f.name, detail: `${"\u2605".repeat(f.rating)}` }))
+  const items = hasRealFeedback && data
+    ? data.map((f) => ({ quote: f.message, name: f.name, detail: `${"\u2605".repeat(f.rating)}` }))
     : testimonials;
 
   return (

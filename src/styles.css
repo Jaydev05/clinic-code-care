@@ -18,8 +18,8 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
-  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -61,34 +61,33 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --shadow-soft: 0 2px 10px -4px oklch(0.32 0.09 250 / 0.14);
-  --shadow-card: 0 12px 32px -18px oklch(0.32 0.09 250 / 0.28);
-  --shadow-lift: 0 24px 50px -24px oklch(0.32 0.09 250 / 0.35);
+  --shadow-soft: 0 8px 22px -12px oklch(0.28 0.08 245 / 0.22);
+  --shadow-card: 0 24px 54px -30px oklch(0.28 0.08 245 / 0.35), 0 1px 2px oklch(0.28 0.08 245 / 0.08);
+  --shadow-lift: 0 36px 72px -34px oklch(0.28 0.08 245 / 0.45), 0 12px 24px -18px oklch(0.55 0.09 195 / 0.32);
 }
 
 :root {
   --radius: 0.875rem;
 
-  --background: oklch(1 0 0);
+  --background: oklch(0.985 0.008 232);
   --foreground: oklch(0.24 0.04 250);
 
-  --surface: oklch(0.976 0.008 240);
+  --surface: oklch(0.958 0.014 226);
 
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.24 0.04 250);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.24 0.04 250);
 
-  /* #0B3B70 */
-  --primary: oklch(0.36 0.098 254);
+  /* Clinical navy */
+  --primary: oklch(0.34 0.09 250);
   --primary-foreground: oklch(0.99 0.004 240);
-  --primary-light: oklch(0.49 0.1 253);
+  --primary-light: oklch(0.46 0.102 242);
 
   --secondary: oklch(0.958 0.014 235);
   --secondary-foreground: oklch(0.36 0.098 254);
 
-  /* #0B9DA5 */
-  --teal: oklch(0.62 0.098 199);
+  --teal: oklch(0.59 0.105 190);
   --teal-foreground: oklch(0.99 0.004 240);
   --teal-soft: oklch(0.955 0.026 196);
 
@@ -124,14 +123,14 @@
   --sidebar-border: oklch(0.918 0.012 245);
   --sidebar-ring: oklch(0.62 0.098 199);
 
-  --gradient-brand: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 55%, var(--teal) 100%);
+  --gradient-brand: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 58%, var(--teal) 100%);
   --gradient-hero-veil: linear-gradient(
     100deg,
     oklch(0.28 0.085 254 / 0.94) 0%,
     oklch(0.3 0.09 254 / 0.82) 45%,
     oklch(0.45 0.09 220 / 0.5) 100%
   );
-  --gradient-soft: linear-gradient(180deg, var(--teal-soft) 0%, oklch(1 0 0) 100%);
+  --gradient-soft: linear-gradient(145deg, var(--teal-soft) 0%, oklch(1 0 0) 56%, var(--secondary) 100%);
 }
 
 @layer base {
@@ -148,6 +147,8 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 88% 4%, color-mix(in oklab, var(--teal) 10%, transparent), transparent 30rem);
+    background-attachment: fixed;
   }
 
   h1,
@@ -156,7 +157,7 @@
   h4,
   h5 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
   }
 }
 
@@ -193,7 +194,7 @@
 }
 
 @utility card-surface {
-  border-radius: var(--radius-2xl);
+  border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
   background-color: var(--color-card);
   box-shadow: var(--shadow-card);
@@ -204,7 +205,27 @@
     transform 0.3s ease,
     box-shadow 0.3s ease;
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-7px) rotateX(1deg);
     box-shadow: var(--shadow-lift);
+  }
+}
+
+@utility dimensional-shell {
+  border: 1px solid color-mix(in oklab, var(--color-card) 70%, var(--color-border));
+  background: color-mix(in oklab, var(--color-card) 88%, transparent);
+  box-shadow: var(--shadow-lift);
+  backdrop-filter: blur(18px);
+}
+
+@utility perspective-stage {
+  perspective: 1200px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
