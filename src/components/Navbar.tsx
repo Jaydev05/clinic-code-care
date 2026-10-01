@@ -38,12 +38,12 @@ export function Navbar() {
   }, [open]);
 
   const linkClass =
-    "rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary";
+    "rounded-lg px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:bg-accent hover:text-primary";
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full border-b transition-shadow duration-300 ${
-        scrolled ? "border-border bg-background/95 shadow-soft backdrop-blur" : "border-transparent bg-background"
+      className={`sticky top-0 z-50 w-full transition-all duration-300 lg:top-4 lg:px-5 ${
+        scrolled ? "" : ""
       }`}
     >
       <a
@@ -52,7 +52,7 @@ export function Navbar() {
       >
         Skip to content
       </a>
-      <div className="container-page flex h-20 items-center justify-between gap-4">
+      <div className={`container-page flex h-20 items-center justify-between gap-4 transition-all duration-300 lg:rounded-xl lg:border ${scrolled ? "bg-background/95 shadow-lift backdrop-blur-xl lg:border-border" : "bg-background/90 shadow-card backdrop-blur-xl lg:border-card"}`}>
         <Logo />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
@@ -61,7 +61,7 @@ export function Navbar() {
               key={l.to}
               to={l.to}
               className={linkClass}
-              activeProps={{ className: "rounded-full px-3 py-2 text-sm font-semibold text-primary bg-accent" }}
+              activeProps={{ className: "rounded-lg px-3 py-2 text-sm font-semibold text-primary bg-accent" }}
               activeOptions={{ exact: l.to === "/" }}
             >
               {l.label}
@@ -112,7 +112,7 @@ export function Navbar() {
               key={l.to}
               to={l.to}
               className={linkClass}
-              activeProps={{ className: "rounded-full px-3 py-2 text-sm font-semibold text-primary bg-accent" }}
+              activeProps={{ className: "rounded-lg px-3 py-2 text-sm font-semibold text-primary bg-accent" }}
             >
               {l.label}
             </Link>
@@ -133,7 +133,7 @@ export function Navbar() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex size-11 items-center justify-center rounded-full border border-border text-primary lg:hidden"
+          className="inline-flex size-11 items-center justify-center rounded-lg border border-border text-primary lg:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
